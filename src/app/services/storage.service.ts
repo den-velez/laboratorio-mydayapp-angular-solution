@@ -5,15 +5,14 @@ import { TaskModel } from '../models/task.model';
   providedIn: 'root',
 })
 export class StorageService {
-  localStorageLabel = 'mydayapp-angular';
+  private localStorageLabel = 'mydayapp-angular';
 
   saveLocalStorage(tasks: TaskModel[]) {
     localStorage.setItem(this.localStorageLabel, JSON.stringify(tasks));
   }
 
-  getLocalStorage(): TaskModel[] | null {
+  getLocalStorage() {
     const taskListString = localStorage.getItem(this.localStorageLabel);
-    const taskList = taskListString ? JSON.parse(taskListString) : null;
-    return taskList;
+    return taskListString ? JSON.parse(taskListString) : [];
   }
 }

@@ -1,5 +1,19 @@
-<section class="main">
-  <ul class="todo-list">
-    <app-task></app-task>
-  </ul>
-</section>
+<div *ngIf="counter > 0" class="container todoapp-wrapper">
+  <section class="main">
+    <ul class="todo-list">
+      <app-task
+        *ngFor="let taskItem of mytasks"
+        [task]="taskItem"
+        (completed)="onComplete($event)"
+        (delete)="onDelete($event)"
+        (update)="onUpdate($event)"
+      ></app-task>
+    </ul>
+  </section>
+  <app-task-footer
+    [counterLeft]="counterLeft"
+    [counterLeftLabel]="counterLeftLabel"
+    [counter]="counter"
+    (filter)="onTaskFilter($event)"
+  ></app-task-footer>
+</div>

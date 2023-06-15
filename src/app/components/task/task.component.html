@@ -1,24 +1,26 @@
-<li class="completed">
-  <div class="view">
-    <input class="toggle" type="checkbox" checked />
-    <label>Learn JavaScript</label>
-    <button class="destroy"></button>
+<li
+  [ngClass]="{
+    completed: task.completed,
+    editing: taskMode === 'edit'
+  }"
+>
+  <div [class.hidden]="taskMode === 'edit'" class="view">
+    <input
+      class="toggle"
+      type="checkbox"
+      [checked]="task.completed"
+      (change)="onUpdateStatus(task)"
+    />
+    <label (dblclick)="editMode()">{{ task.title }}</label>
+    <button class="destroy" (click)="onDelete(task.id)"></button>
   </div>
-  <input class="edit" value="Learn JavaScript" />
-</li>
-<li>
-  <div class="view">
-    <input class="toggle" type="checkbox" />
-    <label>Buy a unicorn</label>
-    <button class="destroy"></button>
-  </div>
-  <input class="edit" value="Buy a unicorn" />
-</li>
-<li class="editing">
-  <div class="view">
-    <input class="toggle" type="checkbox" />
-    <label>Make dishes</label>
-    <button class="destroy"></button>
-  </div>
-  <input class="edit" value="Make dishes" />
+  <input
+    #inputUpdate
+    type="text"
+    style="width: 100%; padding: 10px 0"
+    class="edit"
+    [(ngModel)]="newTitle"
+    (keyup.enter)="onUpdateTitle(task, newTitle)"
+    (keyup.escape)="viewMode()"
+  />
 </li>
